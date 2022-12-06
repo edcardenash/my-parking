@@ -6,7 +6,7 @@ class Parking < ApplicationRecord
   validates :address, presence: true
   validates :price_per_day, presence: true, numericality: true
   validates :description, presence: true
-  validates :covered, presence: true
+  validates :covered, inclusion: { in: [true, false] }
   validates :vehicle_type, presence: true
-  validates :rented, presence: true, inclusion: [true, false]
+  validates :rented, inclusion: { in: [true, false] }
 end

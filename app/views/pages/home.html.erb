@@ -11,3 +11,19 @@
     <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
   </div>
 </div>
+
+
+<div class="container">
+  <div class="row">
+    <% @parkings.each do |parking| %>
+      <% if parking.rented? == false %>
+        <ul>
+        <li><%= parking.name %></li>
+        <li><%= parking.address %></li>
+        <li><%= parking.description %></li>
+        <li><%= parking.price_per_day %></li>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+</div>
