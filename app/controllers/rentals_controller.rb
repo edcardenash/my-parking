@@ -13,6 +13,7 @@ class RentalsController < ApplicationController
 
   def create
     @rental = Rental.new(rentals_params)
+    @rental.user_id = current_user.id
     if @rental.save
       redirect_to @rental, notice: 'Rental was successfully created.'
     else
@@ -43,6 +44,6 @@ class RentalsController < ApplicationController
   end
 
   def rentals_params
-    params.require(:rental).permit(:start_date, :end_date, :total_amount)
+    params.require(:rental).permit(:start_date, :end_date, :total_amount, :parking_id)
   end
 end
