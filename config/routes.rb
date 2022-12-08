@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :parkings
   resources :rentals
   resources :reviews
+  resources :countrys
+  resources :citys
 end

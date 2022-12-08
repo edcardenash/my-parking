@@ -13,6 +13,7 @@ class ParkingsController < ApplicationController
 
   def create
     @parking = Parking.new(parkings_params)
+    @parking.user_id = current_user.id
     if @parking.save
       redirect_to @parking, notice: 'Parking was successfully created.'
     else
@@ -43,6 +44,6 @@ class ParkingsController < ApplicationController
   end
 
   def parkings_params
-    params.require(:parking).permit(:name, :address, :price_per_day, :description, :covered, :vehicle_type, :rented)
+    params.require(:parking).permit(:name, :address, :price_per_day, :description, :covered, :vehicle_type, :rented, :city_id)
   end
 end
