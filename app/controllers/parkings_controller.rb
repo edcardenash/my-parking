@@ -1,7 +1,11 @@
 class ParkingsController < ApplicationController
   before_action :set_parking, only: [:show, :edit, :update, :destroy]
   def index
-    @parkings = Parking.all
+    if params[:query].present?
+      @parkings = Parking.global_search(params[:query])
+    else
+      @parkings = Parking.all
+    end
   end
 
   def show
