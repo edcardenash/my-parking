@@ -1,6 +1,6 @@
 class ParkingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
-  before_action :set_parking, only: [:edit, :update, :destroy]
+  before_action :set_parking, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:query].present?
@@ -11,6 +11,9 @@ class ParkingsController < ApplicationController
   end
 
   def show
+
+    @parking = Parking.find(params[:id])
+    @rental = Rental.new
     @review = Review.new
   end
 
