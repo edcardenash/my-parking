@@ -8,7 +8,7 @@ class Parking < ApplicationRecord
   belongs_to :user
 
   has_many :reviews, dependent: :destroy
-  has_one :rental, dependent: :destroy
+  has_one :rentals, dependent: :destroy
 
   validates :name, presence: true
   validates :address, presence: true

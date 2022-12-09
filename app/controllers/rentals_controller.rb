@@ -7,17 +7,15 @@ class RentalsController < ApplicationController
   end
 
   def create
-    @rental = Rental.new(rental_params)
-    @rental.user = current_user
     @parking = Parking.find(params[:parking_id])
-    @rental.parking = @parking
-    @rental.total_amount = (@rental.end_date - @rental.start_date).to_i * @rental.parking.price_per_day.to_i
+    @rental = Rental.new(rental_params)
+    @rental.total_amount = (@rental.end_date - @rental.start_date).to_f * @rental.parking.price_per_day
+    @rental.user_id = current_user.id
+    @rental.parking_id = @parking.id
     if @rental.save
-      flash[:notice] = '¡Su reserva ha sido procesada'
-      redirect_to user_path(current_user)
+      redirect_to parking_path(@parking)
     else
-      flash[:notice] = 'Lo sentimos, fechas nos disponibles'
-      render "parkings/show"
+      redirect_to root_path
     end
   end
 

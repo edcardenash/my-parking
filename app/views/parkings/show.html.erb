@@ -11,6 +11,8 @@
 <p>Usuario: <%= @parking.user.first_name  %></p>
 <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
 <hr>
+<h3>¡Reserva este parking!</h3>
+<%= render 'shared/rental_form', rental: @rental %>
 <h2>Reviews</h2>
 <% @parking.reviews.each do |review|%>
 <%= review.user.first_name%>:
