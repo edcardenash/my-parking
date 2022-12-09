@@ -14,10 +14,10 @@ class RentalsController < ApplicationController
     @rental.total_amount = (@rental.end_date - @rental.start_date).to_i * @rental.parking.price_per_day.to_i
     if @rental.save
       flash[:notice] = '¡Su reserva ha sido procesada'
-      redirect_to user_path(current_user)
+      redirect_to root_path
     else
       flash[:notice] = 'Lo sentimos, fechas nos disponibles'
-      render "parkings/show"
+      redirect_to root_path
     end
   end
 

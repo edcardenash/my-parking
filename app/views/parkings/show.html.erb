@@ -1,7 +1,11 @@
-
-      <h4><%= @parking.name %></h4>
-      <p><%= @parking.address %></p>
-      <p><%= @parking.description %></p>
-      <p><%= @parking.price_per_day %></p>
-      <h4>¡Reserva este parking!</h4>
-      <%= render 'shared/rental_form', rental: @rental %>
+<p><%= @parking.name %></p>
+<p><%= @parking.address %></p>
+<p><%= @parking.description %></p>
+<p><%= @parking.price_per_day %></p>
+<p><%= @parking.covered %></p>
+<p><%= @parking.vehicle_type %></p>
+<p><%= @parking.city.name  %></p>
+<p><%= @parking.user.first_name  %></p>
+<p><%= @parking.rented  %></p>
+<h4>¡Reserva este parking!</h4>
+<%= render 'shared/rental_form', rental: @rental %>
