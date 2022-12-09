@@ -1,9 +1,14 @@
 class Parking < ApplicationRecord
   include PgSearch::Model
+  pg_search_scope :global_search, against: [:city_id.to_s],
+    associated_against: { city: [:name] },
+    using: { tsearch: { prefix: true } }
+
   belongs_to :city
   belongs_to :user
 
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
+  has_one :rental, dependent: :destroy
 
   validates :name, presence: true
   validates :address, presence: true
@@ -12,8 +17,4 @@ class Parking < ApplicationRecord
   validates :covered, inclusion: { in: [true, false] }
   validates :vehicle_type, presence: true
   validates :rented, inclusion: { in: [true, false] }
-
-  pg_search_scope :global_search, against: [:city_id.to_s],
-                  associated_against: { city: [:name] },
-                  using: { tsearch: { prefix: true } }
 end
