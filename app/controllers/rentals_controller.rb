@@ -1,48 +1,38 @@
 class RentalsController < ApplicationController
-  before_action :set_rent, only: [:show, :edit, :update, :destroy]
+  before_action :set_rental, only: [:destroy]
+  before_action :authenticate_user!, only: :create
+
   def index
-    @rentals = current_user.rentals
-  end
-
-  def show
-  end
-
-  def new
-    @rental = Rental.new
+    @rentals = Rental.all.where(user_id: current_user.id)
   end
 
   def create
-    @rental = Rental.new(rentals_params)
+    @rental = Rental.new(rental_params)
+    @rental.user = current_user
+    @parking = Parking.find(params[:parking_id])
+    @rental.parking = @parking
+    @rental.total_amount = (@rental.end_date - @rental.start_date).to_i * @rental.parking.price_per_day.to_i
     if @rental.save
-      redirect_to @rental, notice: 'Rental was successfully created.'
+      flash[:notice] = '¡Su reserva ha sido procesada'
+      redirect_to user_path(current_user)
     else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @rental.update(rentals_params)
-      redirect_to @rental, notice: 'Rental was successfully updated.'
-    else
-      render :edit, status: :unprocessable_entity
+      flash[:notice] = 'Lo sentimos, fechas nos disponibles'
+      render "parkings/show"
     end
   end
 
   def destroy
     @rental.destroy
-    redirect_to rents_url, notice: 'Rental was successfully destroyed.'
+    redirect_to user_path(current_user)
   end
 
   private
 
-  def set_rent
+  def set_rental
     @rental = Rental.find(params[:id])
   end
 
-  def rentals_params
-    params.require(:rental).permit(:start_date, :end_date, :total_amount)
+  def rental_params
+    params.require(:rental).permit(:start_date, :end_date, :total_amount, :user_id, :parking_id)
   end
 end

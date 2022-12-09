@@ -9,13 +9,17 @@ class ReviewsController < ApplicationController
   end
 
   def new
+    @parking = Parking.find(params[:parking_id])
     @review = Review.new
   end
 
   def create
-    @review = Review.new(review_params)
+    @parking = Parking.find(params[:parking_id])
+    @review = Review.new(reviews_params)
+    @review.parking = @parking
+    @review.user_id = current_user.id
     if @review.save
-      redirect_to @review, notice: "Review was successfully created."
+      redirect_to parking_path(@parking), notice: "Review was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -25,8 +29,9 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    @parking = Parking.find(params[:parking_id])
     if @review.update(review_params)
-      redirect_to @review, notice: "Review was successfully updated."
+      redirect_to parking_path(@parking), notice: "Review was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end

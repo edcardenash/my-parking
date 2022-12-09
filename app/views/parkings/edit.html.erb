@@ -1,0 +1,13 @@
+<h1>Editar parking <%= @parking.name  %> </h1>
+
+<%= simple_form_for @parking do |f| %>
+  <%= f.input :name  %>
+  <%= f.input :address  %>
+  <%= f.input :price_per_day  %>
+  <%= f.input :description  %>
+  <%= f.input :covered  %>
+  <%= f.input :vehicle_type  %>
+  <%= f.association :city  %>
+  <%= f.input :rented  %>
+  <%= f.button :submit  %>
+<% end  %>
