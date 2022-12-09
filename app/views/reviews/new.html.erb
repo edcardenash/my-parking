@@ -1,0 +1,8 @@
+<h1>Agregar un nuevo review a <%= @parking.name %></h1>
+<%= simple_form_for [@parking, @review] do |f| %>
+  <%= f.input :comment %>
+  <%= f.input :rating %>
+  <%= f.submit "Agregar review", class: "btn btn-primary" %>
+<% end %>
+<hr>
+<%= link_to "Regresar a parkings", parkings_path %>

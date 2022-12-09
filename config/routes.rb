@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   end
   resources :rentals
   resources :reviews
-  resources :countrys
-  resources :citys
+  resources :countries
+  resources :cities
 end
