@@ -48,7 +48,7 @@
 
 <!-- Formulario de busqueda por ciudad, arroja el resultado en la vista index de parkings -->
 <h3>Indica donde quieres buscar tu parking</h3>
-<%= form_tag url: parkings_path, method: :get, class: "d-flex" do %>
+<%= form_with(url: parkings_path, method: :get, html: {class: "d-flex"})  do %>
   <%= text_field_tag :query,
     params[:query],
     class: "form-control",

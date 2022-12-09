@@ -1,10 +1,7 @@
 class RentalsController < ApplicationController
-  before_action :set_rent, only: [:show, :edit, :update, :destroy]
+  before_action :set_parking, only: [:new, :create]
   def index
-    @rentals = current_user.rentals
-  end
-
-  def show
+    @rentals = Rental.all.where(user_id: current_user.id)
   end
 
   def new
@@ -12,35 +9,20 @@ class RentalsController < ApplicationController
   end
 
   def create
-    @rental = Rental.new(rentals_params)
-    @rental.user_id = current_user.id
+    @rental = Rental.new(rental_params)
+    @rental.parking = @parking
+    @rental.user = current_user
     if @rental.save
-      redirect_to @rental, notice: 'Rental was successfully created.'
+      redirect_to parking_rentals_path(@parking)
     else
-      render :new, status: :unprocessable_entity
+      redirect_to parking_path(@parking)
     end
-  end
-
-  def edit
-  end
-
-  def update
-    if @rental.update(rentals_params)
-      redirect_to @rental, notice: 'Rental was successfully updated.'
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @rental.destroy
-    redirect_to rents_url, notice: 'Rental was successfully destroyed.'
   end
 
   private
 
-  def set_rent
-    @rental = Rental.find(params[:id])
+  def set_parking
+    @parking = Parking.find(params[:parking_id])
   end
 
   def rentals_params
