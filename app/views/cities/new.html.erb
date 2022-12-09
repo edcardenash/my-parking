@@ -1,0 +1,7 @@
+<h1>Agregar una nueva ciudad</h1>
+
+<%= simple_form_for @city do |f| %>
+  <%= f.input :name  %>
+  <%= f.association :country  %>
+  <%= f.button :submit  %>
+<% end  %>

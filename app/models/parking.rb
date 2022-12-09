@@ -3,6 +3,8 @@ class Parking < ApplicationRecord
   belongs_to :city
   belongs_to :user
 
+  has_many :reviews
+
   validates :name, presence: true
   validates :address, presence: true
   validates :price_per_day, presence: true, numericality: true
