@@ -53,6 +53,6 @@ class ParkingsController < ApplicationController
   end
 
   def parkings_params
-    params.require(:parking).permit(:name, :address, :price_per_day, :description, :covered, :vehicle_type, :rented, :city_id)
+    params.require(:parking).permit(:name, :address, :price_per_day, :description, :covered, :vehicle_type, :rented, :photo, :city_id)
   end
 end
