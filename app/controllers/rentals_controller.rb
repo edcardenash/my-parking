@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :set_rental, only: [:destroy]
+  before_action :set_rental, only: [:show, :destroy]
   before_action :authenticate_user!, only: :create
 
   def index
@@ -9,6 +9,7 @@ class RentalsController < ApplicationController
   def create
     @parking = Parking.find(params[:parking_id])
     @rental = Rental.new(rental_params)
+    @rental.parking = @parking
     @rental.total_amount = (@rental.end_date - @rental.start_date).to_f * @rental.parking.price_per_day
     @rental.user_id = current_user.id
     @rental.parking_id = @parking.id

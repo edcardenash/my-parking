@@ -1,4 +1,4 @@
-<h1>Detalles del Parking <i><%= @parking.name %></i> </h1>
+<h1>Detalles del Parking <strong><%= @parking.name %></strong> </h1>
 
 <p>Rating: <%= @parking.reviews.average(:rating) %></p>
 <p>Nombre: <%= @parking.name %></p>
@@ -14,8 +14,12 @@
 <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
 
 <hr>
+<br>
+<br>
 <h3>¡Reserva este parking!</h3>
 <%= render 'shared/rental_form', rental: @rental %>
+<br>
+<br>
 <h2>Reviews</h2>
 <% @parking.reviews.each do |review|%>
 <%= review.user.first_name%>:
@@ -23,8 +27,8 @@
   <p><%= review.rating %></p>
 <hr>
 <%end%>
-
-
+<br>
+<br>
 <h2>Agregar un review</h2>
 <%= simple_form_for [@parking, @review] do |f| %>
   <%= f.input :comment %>
@@ -32,4 +36,6 @@
   <%= f.submit "agregar un review", class: "btn btn-primary" %>
 <% end %>
 <hr>
+<br>
+<br>
 <%= link_to "Volver a Parkings", parkings_path %>

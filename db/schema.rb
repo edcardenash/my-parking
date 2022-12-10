@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_12_10_130534) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_152239) do
+>>>>>>> master
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,8 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_130534) do
   end
 
   create_table "rentals", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date "start_date"
+    t.date "end_date"
     t.float "total_amount"
     t.bigint "user_id", null: false
     t.bigint "parking_id", null: false
