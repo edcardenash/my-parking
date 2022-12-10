@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-8">
+      <div id="parkings">
+        <% @parkings.each do |parking| %>
+          <h4><%= parking.name %></h4>
+          <p><%= parking.address %></p>
+          <p><%= parking.description %></p>
+          <p><%= parking.price_per_day %></p>
+          <%= link_to 'Show', parking %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

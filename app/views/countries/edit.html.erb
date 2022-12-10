@@ -1,0 +1,6 @@
+<h1>Actualizar datos de <%= @country.name  %> </h1>
+
+<%= simple_form_for @country do |f| %>
+  <%= f.input :name  %>
+  <%= f.button :submit  %>
+<% end  %>

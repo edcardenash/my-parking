@@ -1,6 +1,4 @@
 
-<h1>My Parking</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
 <div class="container mb-3">
   <div class="card-trip">
     <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
@@ -27,6 +25,7 @@
 </div>
 
 
+
     <% @parkings.each.first(30) do |parking| %>
       <% if parking.rented? == false %>
         <ul>
@@ -37,3 +36,12 @@
         </ul>
       <% end %>
     <% end %>
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/lunch.jpg)">
+    Lunch
+  </div>
+
+  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg)">
+    Dinner
+  </div>
+</div>
+</div>

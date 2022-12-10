@@ -1,0 +1,14 @@
+<h1>Ingresar un nuevo parking</h1>
+
+<%= simple_form_for @parking do |f| %>
+  <%= f.input :name  %>
+  <%= f.input :address  %>
+  <%= f.input :price_per_day  %>
+  <%= f.input :description  %>
+  <%= f.input :covered  %>
+  <%= f.input :vehicle_type  %>
+  <%= f.association :city  %>
+  <%= f.input :rented  %>
+  <%= f.input :photo, as: :file %>
+  <%= f.button :submit  %>
+<% end %>

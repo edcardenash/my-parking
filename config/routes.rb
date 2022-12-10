@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-  resources :parkings
-  resources :rentals
+  resources :parkings do
+    resources :reviews, only: [:new, :create]
+    resources :rentals, only: :create
+  end
+  resources :rentals, only: [:index, :destroy, :show]
+  # delete "rentals/:id", to: "rentals#destroy", as: :rental_destroy
   resources :reviews
+  resources :countries
+  resources :cities
 end
