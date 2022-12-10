@@ -8,6 +8,7 @@
           <p><%= parking.description %></p>
           <p><%= parking.price_per_day %></p>
           <%= link_to 'Show', parking %>
+          <%= link_to "New restaurant", new_restaurant_path if policy(Restaurant).new? %>
         <% end %>
       </div>
     </div>

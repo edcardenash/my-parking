@@ -3,21 +3,16 @@ class ParkingsController < ApplicationController
   before_action :set_parking, only: [:show, :edit, :update, :destroy]
 
   def index
-    @parkings = Parking.all
-    @parkings = policy_scope(Parking)
-  end
-
-  def show
-    authorize @parking
     if params[:query].present?
       @parkings = Parking.global_search(params[:query])
     else
       @parkings = Parking.all
     end
+    @parkings = policy_scope(Parking)
   end
 
   def show
-
+    authorize @parking
     @parking = Parking.find(params[:id])
     @rental = Rental.new
     @review = Review.new
@@ -30,12 +25,9 @@ class ParkingsController < ApplicationController
 
   def create
     @parking = Parking.new(parkings_params)
-<<<<<<< HEAD
     @parking.user = current_user
     authorized @parking
-=======
     @parking.user_id = current_user.id
->>>>>>> master
     if @parking.save
       redirect_to @parking, notice: 'Parking was successfully created.'
     else
