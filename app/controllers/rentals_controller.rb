@@ -13,7 +13,7 @@ class RentalsController < ApplicationController
     @rental.total_amount = (@rental.end_date - @rental.start_date).to_f * @rental.parking.price_per_day
     @rental.user_id = current_user.id
     @rental.parking_id = @parking.id
-    if @rental.save!
+    if @rental.save
       redirect_to parking_path(@parking)
     else
       redirect_to root_path
