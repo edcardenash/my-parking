@@ -1,19 +1,25 @@
 class RentalsController < ApplicationController
-  before_action :set_rental, only: [:destroy]
+  before_action :set_rental, only: [:show, :destroy]
   before_action :authenticate_user!, only: :create
 
   def index
     @rentals = Rental.all.where(user_id: current_user.id)
   end
 
+  def show
+    @rental = Rental.find(params[:id])
+    @parking = @rental.parking
+  end
+
   def create
     @parking = Parking.find(params[:parking_id])
     @rental = Rental.new(rental_params)
+    @rental.parking = @parking
     @rental.total_amount = (@rental.end_date - @rental.start_date).to_f * @rental.parking.price_per_day
     @rental.user_id = current_user.id
     @rental.parking_id = @parking.id
     if @rental.save
-      redirect_to parking_path(@parking)
+      redirect_to rental_path(@rental)
     else
       redirect_to root_path
     end
@@ -21,7 +27,7 @@ class RentalsController < ApplicationController
 
   def destroy
     @rental.destroy
-    redirect_to user_path(current_user)
+    redirect_to rentals_path, status: :see_other
   end
 
   private

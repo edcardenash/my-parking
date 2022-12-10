@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root to: "pages#home"
   resources :parkings do
     resources :reviews, only: [:new, :create]
-    resources :rentals, except: [:index, :new, :edit, :update, :destroy]
+    resources :rentals, only: :create
   end
-  resources :rentals
+  resources :rentals, only: [:index, :destroy, :show]
+  # delete "rentals/:id", to: "rentals#destroy", as: :rental_destroy
   resources :reviews
   resources :countries
   resources :cities
