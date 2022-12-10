@@ -1,4 +1,4 @@
-class CitysController < ApplicationController
+class CitiesController < ApplicationController
   before_action :set_city, only: [:show, :edit, :update, :destroy]
   def index
     @cities = City.all
@@ -12,9 +12,9 @@ class CitysController < ApplicationController
   end
 
   def create
-    @city = City.new(citys_params)
+    @city = City.new(cities_params)
     if @city.save
-      redirect_to @city, notice: 'City was successfully created.'
+      redirect_to @city.index, notice: 'City was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,7 +24,7 @@ class CitysController < ApplicationController
   end
 
   def update
-    if @city.update(citys_params)
+    if @city.update(cities_params)
       redirect_to @city, notice: 'City was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
@@ -42,7 +42,7 @@ class CitysController < ApplicationController
     @city = City.find(params[:id])
   end
 
-  def citys_params
+  def cities_params
     params.require(:city).permit(:name, :country_id)
   end
 end

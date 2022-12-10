@@ -11,8 +11,10 @@ class ParkingsController < ApplicationController
   end
 
   def show
+
     @parking = Parking.find(params[:id])
     @rental = Rental.new
+    @review = Review.new
   end
 
   def new
