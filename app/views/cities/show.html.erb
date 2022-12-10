@@ -1,0 +1,5 @@
+<h1>Detalles de <% @city.name %></h1>
+  <h3>Pais: <%= @city.country.name %></h3>
+<h2>Operaciones</h2>
+<%= link_to "Editar Ciudad", edit_city_path %>
+<%= button_to 'Delete', city_path(@city), method: :delete %>

@@ -1,0 +1,32 @@
+<h1>Detalles del Parking <i><%= @parking.name %></i> </h1>
+
+<p>Rating: <%= @parking.reviews.average(:rating) %></p>
+<p>Nombre: <%= @parking.name %></p>
+<p>Dirección: <%= @parking.address %></p>
+<p>Descripción: <%= @parking.description %></p>
+<p>Valor diario: <%= @parking.price_per_day %></p>
+<p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
+<p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
+<p>Ciudad: <%= @parking.city.name  %></p>
+<p>Usuario: <%= @parking.user.first_name  %></p>
+<p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
+<hr>
+<h3>¡Reserva este parking!</h3>
+<%= render 'shared/rental_form', rental: @rental %>
+<h2>Reviews</h2>
+<% @parking.reviews.each do |review|%>
+<%= review.user.first_name%>:
+  <p><%= review.comment %></p>
+  <p><%= review.rating %></p>
+<hr>
+<%end%>
+
+
+<h2>Agregar un review</h2>
+<%= simple_form_for [@parking, @review] do |f| %>
+  <%= f.input :comment %>
+  <%= f.input :rating %>
+  <%= f.submit "agregar un review", class: "btn btn-primary" %>
+<% end %>
+<hr>
+<%= link_to "Volver a Parkings", parkings_path %>

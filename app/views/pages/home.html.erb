@@ -1,6 +1,4 @@
 
-<h1>My Parking</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
 <div class="container mb-3">
 <div class="card-trip">
   <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
@@ -50,20 +48,3 @@
   </div>
 </div>
 </div>
-
-
-<div class="container">
-  <div class="row">
-    <% @parkings.each do |parking| %>
-      <% if parking.rented? == false %>
-        <ul>
-        <li><%= parking.name %></li>
-        <li><%= parking.address %></li>
-        <li><%= parking.description %></li>
-        <li><%= parking.price_per_day %></li>
-        </ul>
-      <% end %>
-    <% end %>
-  </div>
-</div>
-

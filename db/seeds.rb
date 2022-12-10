@@ -7,10 +7,10 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 require 'date'
-Parking.destroy_all
-User.destroy_all
-City.destroy_all
 Country.destroy_all
+City.destroy_all
+User.destroy_all
+Parking.destroy_all
 Rental.destroy_all
 Review.destroy_all
 
