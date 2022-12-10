@@ -1,0 +1,14 @@
+<h1>Estas son tus <strong>reservas</strong> </h1>
+<br>
+<% @rentals.each do |rental| %>
+  <h4><%= rental.parking.name %></h4>
+  <p><%= rental.parking.address %></p>
+  <p><%= rental.parking.description %></p>
+  <p><%= rental.parking.price_per_day %></p>
+  <p><%= rental.total_amount %></p>
+  <p><%= rental.start_date %></p>
+  <p><%= rental.end_date %></p>
+  <%= link_to "Ver detalle", rental_path(rental) %>
+<% end %>
+
+<%= link_to "Volver a Parkings", parkings_path %>
