@@ -1,10 +1,10 @@
 <h1>Detalles del Parking <i><%= @parking.name %></i> </h1>
 
-<% if policy(@restaurant).edit? %>
-  <%= link_to "Edit this restaurant", edit_restaurant_path(@restaurant) %> |
+<% if policy(@parking).edit? %>
+  <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
 <% end %>
 <!-- [...] -->
-<%= button_to "Destroy this restaurant", @restaurant, method: :delete if policy(@restaurant).destroy? %>
+<%= button_to "Destroy this parking", @parking, method: :delete if policy(@parking).destroy? %>
 
 <p>Rating: <%= @parking.reviews.average(:rating) %></p>
 <p>Nombre: <%= @parking.name %></p>

@@ -7,8 +7,14 @@ class ParkingsController < ApplicationController
       @parkings = Parking.global_search(params[:query])
     else
       @parkings = Parking.all
+
     end
-    @parkings = policy_scope(Parking)
+      @parkings = policy_scope(Parking)
+       @markers = @parkings.geocoded.map do |flat|
+      {
+        lat: parking.latitude,
+        lng: parking.longitude
+      }
   end
 
   def show

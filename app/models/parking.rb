@@ -3,7 +3,8 @@ class Parking < ApplicationRecord
   pg_search_scope :global_search, against: [:city_id.to_s],
     associated_against: { city: [:name] },
     using: { tsearch: { prefix: true } }
-
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
   belongs_to :city
   belongs_to :user
 
