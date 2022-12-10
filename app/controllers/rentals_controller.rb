@@ -6,6 +6,11 @@ class RentalsController < ApplicationController
     @rentals = Rental.all.where(user_id: current_user.id)
   end
 
+  def show
+    @rental = Rental.find(params[:id])
+    @parking = @rental.parking
+  end
+
   def create
     @parking = Parking.find(params[:parking_id])
     @rental = Rental.new(rental_params)
@@ -14,7 +19,7 @@ class RentalsController < ApplicationController
     @rental.user_id = current_user.id
     @rental.parking_id = @parking.id
     if @rental.save
-      redirect_to parking_path(@parking)
+      redirect_to rental_path(@rental)
     else
       redirect_to root_path
     end
@@ -22,7 +27,7 @@ class RentalsController < ApplicationController
 
   def destroy
     @rental.destroy
-    redirect_to user_path(current_user)
+    redirect_to rentals_path, status: :see_other
   end
 
   private
