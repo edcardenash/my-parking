@@ -26,7 +26,7 @@
 
 
 
-    <% @parkings.each.first(30) do |parking| %>
+    <% @parkings.each do |parking| %>
       <% if parking.rented? == false %>
         <ul>
         <li><%= parking.name %></li>
