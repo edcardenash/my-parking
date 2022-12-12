@@ -11,12 +11,9 @@ class ParkingsController < ApplicationController
   end
 
   def show
-<<<<<<< HEAD
-=======
     @parking = Parking.find(params[:id])
     @user = @parking.user_id
     @owner = @user == current_user.id
->>>>>>> master
     @rental = Rental.new
     @review = Review.new
   end

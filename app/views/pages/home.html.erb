@@ -1,47 +1,36 @@
-
-<div class="container mb-3">
-  <div class="card-trip">
-    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
-    <div class="card-trip-infos">
-      <div>
-        <h2>Title here</h2>
-        <p>Short description here!</p>
-      </div>
-      <h2 class="card-trip-pricing">£99.99</h2>
-      <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
-    </div>
-  </div>
-</div>
-<div class="card-trip">
-  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
-  <div class="card-trip-infos">
-    <div>
-      <h2>Title here</h2>
-      <p>Short description here!</p>
-    </div>
-    <h2 class="card-trip-pricing">£99.99</h2>
-    <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
-  </div>
-</div>
-
-
-
-<h2>Parkings</h2>
+<h2 class="mt-4">Parkings recientes</h2>
+<div class="container mb-3 mt-4">
+  <div class="row">
     <% @parkings.each do |parking| %>
-
-        <ul>
-        <li><%= parking.name %></li>
-        <li><%= parking.address %></li>
-        <li><%= parking.description %></li>
-        <li><%= parking.price_per_day %></li>
-        </ul>
-      <% end %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/lunch.jpg)">
-    Lunch
-  </div>
-
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg)">
-    Dinner
+        <div class="col-3 mb-4">
+          <div class="card-trip">
+            <%= cl_image_tag parking.photo.key%>
+            <div class="card-trip-infos">
+              <div class="pl-2">
+                <h2 class="mb-2"><%= parking.name %></h2>
+                <p><%= parking.address %></p>
+              </div>
+              <div>
+                <p class="mb-2"><i class= "<%= parking.reviews.average(:rating) == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i> <%= parking.reviews.average(:rating) %></p>
+                <h2 class="card-trip-pricing">$<%= parking.price_per_day %></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
   </div>
 </div>
+
+
+<h2>Comunas donde estamos!</h2>
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670814623/providencia_zg2lda.jpg)">
+  Providencia
+</div>
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670814868/laReina_j1db9j.jpg); background-position: center bottom;">
+  La Reina
+</div>
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670815117/lasCondes_yvryzy.jpg); background-position: center bottom;">
+  Las Condes
 </div>
