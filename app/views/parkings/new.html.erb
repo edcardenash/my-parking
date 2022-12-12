@@ -1,14 +1,13 @@
-<h1>Ingresar un nuevo parking</h1>
-
+<h1 class="mt-4">Ingresar un nuevo parking</h1>
 <%= simple_form_for @parking do |f| %>
-  <%= f.input :name  %>
-  <%= f.input :address  %>
-  <%= f.input :price_per_day  %>
-  <%= f.input :description  %>
-  <%= f.input :covered  %>
-  <%= f.input :vehicle_type  %>
-  <%= f.association :city  %>
+  <%= f.input :name, label: "Nombre de la publicación", class: "form-control"  %>
+  <%= f.input :address, label: "Dirección"  %>
+  <%= f.input :price_per_day, label: "Valor diario", as: :float  %>
+  <%= f.input :description, label: "Descripción", as: :text  %>
+  <%= f.input :covered, label: "¿Es cubierto?"  %>
+  <%= f.input :vehicle_type, label: "¿Que tipo de vehiculo?" %>
+  <%= f.association :city, label: "Ciudad o Comuna"  %>
   <%= f.input :rented  %>
-  <%= f.input :photo, as: :file %>
-  <%= f.button :submit  %>
+  <%= f.input :photo, as: :file, label: "Sube una imágen" %>
+  <%= f.button :submit,"Publicar", class: "btn btn-primary"%>
 <% end %>

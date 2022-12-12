@@ -14,18 +14,24 @@
       </div>
     </div>
     <div class="row">
-      <p>Descripción: <%= @parking.description %></p>
-      <p>Valor diario: <%= @parking.price_per_day %></p>
-      <p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
-      <p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
-      <p>Ciudad: <%= @parking.city.name  %></p>
-      <p>Usuario: <%= @parking.user.first_name  %></p>
-      <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Descripción: <%= @parking.description %></li>
+        <li class="list-group-item">Valor diario: <%= @parking.price_per_day %></li>
+        <li class="list-group-item">¿Es cubierto?: <%= @parking.covered ? "Si" : "No" %></li>
+        <li class="list-group-item">Vehiculos recomendados: <%= @parking.vehicle_type %></li>
+        <li class="list-group-item">Ciudad: <%= @parking.city.name  %></li>
+        <li class="list-group-item">Usuario: <%= @parking.user.first_name  %></li>
+        <li class="list-group-item">Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></li>
+      </ul>
     </div>
   </div>
 
+
+
   <div class="col-4">
-      <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
+      <%= cl_image_tag(@parking.photo.key, height: 300, width: 400, crop: :fill, :transformation=>[
+        {:border=>"2px_solid_grey", :radius=>7}
+      ])%>
 
       <% unless @owner %>
         <h3 class="mt-4 mb-4 text-center">¡Reserva este parking!</h3>
@@ -35,21 +41,27 @@
 
 </div>
 
-<h2>Reviews</h2>
 
-<% @parking.reviews.each do |review|%>
-  <figure>
-    <blockquote class="blockquote">
-      <p><%= review.comment %></p>
-    </blockquote>
-    <figcaption class="blockquote-footer">
-      <%= review.user.first_name%> <cite title="rating">
-      <p><i class="<%= review.rating == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i>
-      <%= review.rating %></p></cite>
-    </figcaption>
-  </figure>
-  <hr>
+<% unless @parking.reviews.count.zero? %>
+  <h2>Reviews</h2>
+  <% @parking.reviews.each do |review|%>
+    <figure>
+      <blockquote class="blockquote">
+        <p><%= review.comment %></p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        <%= review.user.first_name%> <cite title="rating">
+        <p><i class="<%= review.rating == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i>
+        <%= review.rating %></p></cite>
+      </figcaption>
+    </figure>
+    <hr>
+  <% end %>
+<% else %>
+  <h3>Sin reviews por el momento</h3>
 <%end%>
+
+
 
 <% unless @owner %>
   <h2 class="mt-4">Agregar un review</h2>
