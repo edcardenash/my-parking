@@ -1,8 +1,15 @@
-<h1>Detalles del Parking <strong><%= @parking.name %></strong> </h1>
-
-<p>Rating: <%= @parking.reviews.average(:rating) %></p>
-<p>Nombre: <%= @parking.name %></p>
-<p>Dirección: <%= @parking.address %></p>
+<h1 class="mt-3"><strong><%= @parking.name.capitalize %></strong> </h1>
+<div class="row">
+  <div class="col-2">
+    <p><i class="fa-regular fa-comment-dots"></i> <%= @parking.reviews.count %> reviews</p>
+  </div>
+  <div class="col-1">
+    <p><i class= "<%= @parking.reviews.average(:rating) == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i> <%= @parking.reviews.average(:rating) %></p>
+  </div>
+  <div class="col-3">
+    <p><i class="fa-solid fa-location-dot"></i> <%= @parking.address %></p>
+  </div>
+</div>
 <p>Descripción: <%= @parking.description %></p>
 <p>Valor diario: <%= @parking.price_per_day %></p>
 <p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
