@@ -10,14 +10,14 @@
 <p>Ciudad: <%= @parking.city.name  %></p>
 <p>Usuario: <%= @parking.user.first_name  %></p>
 <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
-
 <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
-
 <hr>
 <br>
 <br>
-<h3>¡Reserva este parking!</h3>
-<%= render 'shared/rental_form', rental: @rental %>
+<% unless @owner %>
+  <h3>¡Reserva este parking!</h3>
+  <%= render 'shared/rental_form', rental: @rental %>
+<% end %>
 <br>
 <br>
 <h2>Reviews</h2>
@@ -29,11 +29,13 @@
 <%end%>
 <br>
 <br>
-<h2>Agregar un review</h2>
-<%= simple_form_for [@parking, @review] do |f| %>
-  <%= f.input :comment %>
-  <%= f.input :rating %>
-  <%= f.submit "agregar un review", class: "btn btn-primary" %>
+<% unless @owner %>
+  <h2>Agregar un review</h2>
+  <%= simple_form_for [@parking, @review] do |f| %>
+    <%= f.input :comment %>
+    <%= f.input :rating %>
+    <%= f.submit "agregar un review", class: "btn btn-primary" %>
+  <% end %>
 <% end %>
 <hr>
 <br>

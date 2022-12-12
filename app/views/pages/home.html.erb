@@ -26,8 +26,9 @@
 
 
 
+<h2>Parkings</h2>
     <% @parkings.each do |parking| %>
-      <% if parking.rented? == false %>
+
         <ul>
         <li><%= parking.name %></li>
         <li><%= parking.address %></li>
@@ -35,7 +36,6 @@
         <li><%= parking.price_per_day %></li>
         </ul>
       <% end %>
-    <% end %>
   <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/lunch.jpg)">
     Lunch
   </div>
