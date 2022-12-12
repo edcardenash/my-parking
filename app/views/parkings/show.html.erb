@@ -1,50 +1,61 @@
-<h1 class="mt-3"><strong><%= @parking.name.capitalize %></strong> </h1>
+<h1 class="mt-4 mb-4 text-center"><strong><%= @parking.name.capitalize %></strong></h1>
+<hr>
 <div class="row">
-  <div class="col-2">
-    <p><i class="fa-regular fa-comment-dots"></i> <%= @parking.reviews.count %> reviews</p>
+  <div class="col-7">
+    <div class="row">
+      <div class="col-2">
+        <p><i class="fa-regular fa-comment-dots"></i> <%= @parking.reviews.count %> reviews</p>
+      </div>
+      <div class="col-2">
+        <p><i class="<%= @parking.reviews.average(:rating) == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i> <%= @parking.reviews.average(:rating) %></p>
+      </div>
+      <div class="col-3">
+        <p><i class="fa-solid fa-location-dot"></i> <%= @parking.address %></p>
+      </div>
+    </div>
+    <div class="row">
+      <p>Descripción: <%= @parking.description %></p>
+      <p>Valor diario: <%= @parking.price_per_day %></p>
+      <p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
+      <p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
+      <p>Ciudad: <%= @parking.city.name  %></p>
+      <p>Usuario: <%= @parking.user.first_name  %></p>
+      <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
+    </div>
   </div>
-  <div class="col-1">
-    <p><i class= "<%= @parking.reviews.average(:rating) == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i> <%= @parking.reviews.average(:rating) %></p>
+
+  <div class="col-4">
+      <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
+
+      <% unless @owner %>
+        <h3 class="mt-4 mb-4 text-center">¡Reserva este parking!</h3>
+        <%= render 'shared/rental_form', rental: @rental %>
+      <% end %>
   </div>
-  <div class="col-3">
-    <p><i class="fa-solid fa-location-dot"></i> <%= @parking.address %></p>
-  </div>
+
 </div>
-<p>Descripción: <%= @parking.description %></p>
-<p>Valor diario: <%= @parking.price_per_day %></p>
-<p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
-<p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
-<p>Ciudad: <%= @parking.city.name  %></p>
-<p>Usuario: <%= @parking.user.first_name  %></p>
-<p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
-<%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
-<hr>
-<br>
-<br>
-<% unless @owner %>
-  <h3>¡Reserva este parking!</h3>
-  <%= render 'shared/rental_form', rental: @rental %>
-<% end %>
-<br>
-<br>
+
 <h2>Reviews</h2>
+
 <% @parking.reviews.each do |review|%>
-<%= review.user.first_name%>:
-  <p><%= review.comment %></p>
-  <p><%= review.rating %></p>
-<hr>
+  <figure>
+    <blockquote class="blockquote">
+      <p><%= review.comment %></p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+      <%= review.user.first_name%> <cite title="rating">
+      <p><i class="<%= review.rating == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i>
+      <%= review.rating %></p></cite>
+    </figcaption>
+  </figure>
+  <hr>
 <%end%>
-<br>
-<br>
+
 <% unless @owner %>
-  <h2>Agregar un review</h2>
+  <h2 class="mt-4">Agregar un review</h2>
   <%= simple_form_for [@parking, @review] do |f| %>
-    <%= f.input :comment %>
-    <%= f.input :rating %>
-    <%= f.submit "agregar un review", class: "btn btn-primary" %>
+    <%= f.input :comment, as: :text %>
+    <%= f.input :rating, class: "form-control" %>
+    <%= f.submit "Agregar review", class: "btn btn-primary" %>
   <% end %>
 <% end %>
-<hr>
-<br>
-<br>
-<%= link_to "Volver a Parkings", parkings_path %>
