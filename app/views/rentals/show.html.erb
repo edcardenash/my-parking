@@ -1,4 +1,4 @@
-<h1>Este es el detalle de tu reserva para <strong><%= @parking.name %></strong> </h1>
+<h1>Este es el detalle de tu reserva para <br><strong><%= @parking.name %></strong> </h1>
 <br>
 <p>Nombre: <%= @parking.name %></p>
 <p>Dirección: <%= @parking.address %></p>
@@ -10,5 +10,5 @@
 <button type="button" class="btn btn-warning">Reservar</button>
 <br>
 <br>
-<%= link_to 'Destroy', rental_path(@rental), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
-<%= link_to "Volver a Parkings", parkings_path %>
+<%= link_to 'Eliminar', rental_path(@rental), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } %>
+<%= link_to "Regresar a Parkings", parkings_path %>

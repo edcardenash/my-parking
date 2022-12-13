@@ -1,17 +1,30 @@
+<h1>Estos son los <strong>Parkings</strong> disponibles</h1>
+<br>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-8">
       <div id="parkings">
-
         <% @parkings.each do |parking| %>
-          <% if parking.rented? == false %>
-            <h4><%= parking.name %></h4>
-            <p><%= parking.address %></p>
-            <p><%= parking.description %></p>
-            <p><%= parking.price_per_day %></p>
-            <%= link_to 'Show', parking %>
+          <% if user_signed_in? %>
+            <% if parking.user_id != current_user.id %>
+              <% if parking.rented? == false %>
+                <h4><%= parking.name %></h4>
+                <p><%= parking.address %></p>
+                <p><%= parking.description %></p>
+                <p><%= parking.price_per_day %></p>
+                <%= link_to 'Ver más', parking %>
+              <% end %>
+            <% end %>
+            <% else %>
+              <% if parking.rented? == false %>
+                <h4><%= parking.name %></h4>
+                <p><%= parking.address %></p>
+                <p><%= parking.description %></p>
+                <p><%= parking.price_per_day %></p>
+                <%= link_to 'Ver más', parking %>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
       </div>
     </div>
   </div>

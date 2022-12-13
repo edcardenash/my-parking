@@ -12,8 +12,6 @@ class ParkingsController < ApplicationController
 
   def show
     @parking = Parking.find(params[:id])
-    @user = @parking.user_id
-    @owner = @user == current_user.id
     @rental = Rental.new
     @review = Review.new
   end
@@ -46,6 +44,10 @@ class ParkingsController < ApplicationController
   def destroy
     @parking.destroy
     redirect_to parking_url, notice: 'Parking was successfully destroyed.'
+  end
+
+  def my_parkings
+    @parkings = current_user.parkings
   end
 
   private
