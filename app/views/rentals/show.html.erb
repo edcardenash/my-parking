@@ -4,6 +4,7 @@
 <p>Dirección: <%= @parking.address %></p>
 <p>Fecha de inicio: <%= @rental.start_date %></p>
 <p>Fecha de término: <%= @rental.end_date %></p>
+<%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
 <br>
 <br>
 <h3>¡Proceder a pagar!</h3>

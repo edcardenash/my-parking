@@ -11,7 +11,7 @@
 <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
 <% if @parking.user == current_user %>
 <p><%= link_to "Editar", edit_parking_path(@parking), class:"form-actions btn-edit" %></p>
-<p><%= link_to 'Eliminar', @parking, method: :delete, data: { confirm: '¿Estás seguro?' } %></p>
+<p><%= link_to 'Eliminar', parking_path(@parking), method: :delete, data: { confirm: '¿Estás seguro?' } %></p>
 <%end%>
 <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
 <hr>

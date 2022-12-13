@@ -12,36 +12,22 @@
     </div>
   </div>
 </div>
-<div class="card-trip">
-  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
-  <div class="card-trip-infos">
-    <div>
-      <h2>Title here</h2>
-      <p>Short description here!</p>
-    </div>
-    <h2 class="card-trip-pricing">£99.99</h2>
-    <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
+<h2>Últimos Parkings</h2>
+<div class="cards d-flex">
+  <% @parkings.each do |parking| %>
+      <div class="card">
+        <% if parking.photo.attached? %>
+          <%= cl_image_tag parking.photo.key, height: 150, width: 200, crop: :fill%>
+        <% end %>
+        <div class="card-trip">
+          <div>
+            <h4><%= parking.name %></h4>
+            <p><%= parking.address %></p>
+            <p><%= parking.description %></p>
+            <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
+          </div>
+          <%= link_to 'Ver más', parking %>
+        </div>
+      </div>
+  <% end %>
   </div>
-</div>
-
-
-
-<h2>Parkings</h2>
-    <% @parkings.each do |parking| %>
-
-        <ul>
-        <li><%= parking.name %></li>
-        <li><%= parking.address %></li>
-        <li><%= parking.description %></li>
-        <li><%= parking.price_per_day %></li>
-        </ul>
-      <% end %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/lunch.jpg)">
-    Lunch
-  </div>
-
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/dinner.jpg)">
-    Dinner
-  </div>
-</div>
-</div>
