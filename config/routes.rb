@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   resources :parkings do
     resources :reviews, only: [:new, :create]
     resources :rentals, only: :create
+    collection do
+      get "my_parkings"
+    end
   end
   resources :rentals, only: [:index, :destroy, :show]
-  # delete "rentals/:id", to: "rentals#destroy", as: :rental_destroy
   resources :reviews
   resources :countries
   resources :cities

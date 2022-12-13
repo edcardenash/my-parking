@@ -1,5 +1,4 @@
 class Rental < ApplicationRecord
-  has_one :parking
   belongs_to :user
   belongs_to :parking
   # validates :start_date, presence: true, comparison: { greater_than_or_equal_to: :end_date }
