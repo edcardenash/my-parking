@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 class="mt-4 mb-4 text-center"><strong><%= @parking.name.capitalize %></strong></h1>
 <hr>
 <div class="row">
@@ -68,5 +69,52 @@
     <%= f.input :comment, as: :text %>
     <%= f.input :rating, class: "form-control" %>
     <%= f.submit "Agregar review", class: "btn btn-primary" %>
+=======
+<h1>Detalles del Parking <br><strong><%= @parking.name %></strong> </h1>
+
+<p>Rating: <%= @parking.reviews.average(:rating) %></p>
+<p>Nombre: <%= @parking.name %></p>
+<p>Dirección: <%= @parking.address %></p>
+<p>Descripción: <%= @parking.description %></p>
+<p>Valor diario: <%= @parking.price_per_day %></p>
+<p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
+<p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
+<p>Ciudad: <%= @parking.city.name  %></p>
+<p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
+<% if @parking.user == current_user %>
+<p><%= link_to "Editar", edit_parking_path(@parking), class:"form-actions btn-edit" %></p>
+<p><%= link_to 'Eliminar', @parking, method: :delete, data: { confirm: '¿Estás seguro?' } %></p>
+<%end%>
+<%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
+<hr>
+<br>
+<br>
+<h2>Reviews</h2>
+<% @parking.reviews.each do |review|%>
+<%= review.user.first_name%>:
+  <p><%= review.comment %></p>
+  <p><%= review.rating %></p>
+<hr>
+<%end%>
+<br>
+<br>
+<% if user_signed_in? %>
+  <% if @parking.user != current_user && @parking.rented? == false %>
+      <h3>¡Reserva este parking!</h3>
+      <%= render 'shared/rental_form', rental: @rental %>
+      <br>
+      <br>
+>>>>>>> master
   <% end %>
+  <% if @parking.rented? == true && @parking.rental.user_id == current_user.id %>
+    <h2>Agregar un review</h2>
+    <%= simple_form_for [@parking, @review] do |f| %>
+      <%= f.input :comment %>
+      <%= f.input :rating %>
+      <%= f.submit "Agregar un review", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+<% else %>
+  <h3>¡Reserva este parking!</h3>
+        <%= render 'shared/rental_form', rental: @rental %>
 <% end %>
