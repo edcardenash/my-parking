@@ -1,5 +1,4 @@
 <h1>Detalles del Parking <br><strong><%= @parking.name %></strong> </h1>
-
 <p>Rating: <%= @parking.reviews.average(:rating) %></p>
 <p>Nombre: <%= @parking.name %></p>
 <p>Dirección: <%= @parking.address %></p>
@@ -29,7 +28,7 @@
 <% if user_signed_in? %>
   <% if @parking.user != current_user && @parking.rented? == false %>
       <h3>¡Reserva este parking!</h3>
-      <%= render 'shared/rental_form', rental: @rental %>
+      <%= render 'shared/rental_form' %>
       <br>
       <br>
   <% end %>
@@ -42,8 +41,7 @@
     <% end %>
   <% end %>
 <% else %>
-  <h3>¡Reserva este parking!</h3>
-        <%= render 'shared/rental_form', rental: @rental %>
+  <h4>Para reservar este parking <strong><%= link_to "Inicia sesión", new_user_session_path, class: "nav-link" %></strong></h4>
 <% end %>
 <hr>
 <br>
