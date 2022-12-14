@@ -1,0 +1,6 @@
+Cloudinary.config do |config|
+  config.cloud_name = 'dpobz3mzq'
+  config.api_key = '494771757919415'
+  config.api_secret = 'LFQN2iLW6oo17xW4rjDFhnBrbTA'
+  config.secure = true
+end

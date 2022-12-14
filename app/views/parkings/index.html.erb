@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-sm-8">
@@ -18,3 +19,30 @@
     </div>
   </div>
 </div>
+=======
+<h1>Estos son los <strong>Parkings</strong> disponibles</h1>
+<br>
+<% @parkings.each do |parking| %>
+  <% if user_signed_in? %>
+    <% if parking.user_id != current_user.id %>
+      <% if parking.rented? == false %>
+        <h4><%= parking.name %></h4>
+        <%= cl_image_tag parking.photo.key, height: 300, width: 400, crop: :fill %>
+        <p><%= parking.address %></p>
+        <p><%= parking.description %></p>
+        <p><%= parking.price_per_day %></p>
+        <%= link_to 'Ver más', parking %>
+      <% end %>
+    <% end %>
+    <% else %>
+      <% if parking.rented? == false %>
+        <h4><%= parking.name %></h4>
+        <%= cl_image_tag parking.photo.key, height: 300, width: 400, crop: :fill %>
+        <p><%= parking.address %></p>
+        <p><%= parking.description %></p>
+        <p><%= parking.price_per_day %></p>
+        <%= link_to 'Ver más', parking %>
+      <% end %>
+    <% end %>
+  <% end %>
+>>>>>>> master

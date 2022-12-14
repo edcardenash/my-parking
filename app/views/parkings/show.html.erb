@@ -1,4 +1,4 @@
-<h1>Detalles del Parking <i><%= @parking.name %></i> </h1>
+<h1>Detalles del Parking <br><strong><%= @parking.name %></strong> </h1>
 
 <% if policy(@parking).edit? %>
   <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
@@ -14,11 +14,15 @@
 <p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
 <p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
 <p>Ciudad: <%= @parking.city.name  %></p>
-<p>Usuario: <%= @parking.user.first_name  %></p>
 <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
+<% if @parking.user == current_user %>
+<p><%= link_to "Editar", edit_parking_path(@parking), class:"form-actions btn-edit" %></p>
+<p><%= link_to 'Eliminar', parking_path(@parking), method: :delete, data: { confirm: '¿Estás seguro?' } %></p>
+<%end%>
+<%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
 <hr>
-<h3>¡Reserva este parking!</h3>
-<%= render 'shared/rental_form', rental: @rental %>
+<br>
+<br>
 <h2>Reviews</h2>
 <% @parking.reviews.each do |review|%>
 <%= review.user.first_name%>:
@@ -26,13 +30,28 @@
   <p><%= review.rating %></p>
 <hr>
 <%end%>
-
-
-<h2>Agregar un review</h2>
-<%= simple_form_for [@parking, @review] do |f| %>
-  <%= f.input :comment %>
-  <%= f.input :rating %>
-  <%= f.submit "agregar un review", class: "btn btn-primary" %>
+<br>
+<br>
+<% if user_signed_in? %>
+  <% if @parking.user != current_user && @parking.rented? == false %>
+      <h3>¡Reserva este parking!</h3>
+      <%= render 'shared/rental_form', rental: @rental %>
+      <br>
+      <br>
+  <% end %>
+  <% if @parking.rented? == true && @parking.rental.user_id == current_user.id %>
+    <h2>Agregar un review</h2>
+    <%= simple_form_for [@parking, @review] do |f| %>
+      <%= f.input :comment %>
+      <%= f.input :rating %>
+      <%= f.submit "Agregar un review", class: "btn btn-primary" %>
+    <% end %>
+  <% end %>
+<% else %>
+  <h3>¡Reserva este parking!</h3>
+        <%= render 'shared/rental_form', rental: @rental %>
 <% end %>
 <hr>
+<br>
+<br>
 <%= link_to "Volver a Parkings", parkings_path %>

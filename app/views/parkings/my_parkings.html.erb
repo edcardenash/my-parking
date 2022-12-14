@@ -1,0 +1,14 @@
+<h1>Estos son tus <strong>parkings</strong> </h1>
+<br>
+<% @parkings.each do |parking| %>
+  <% if parking.user == current_user %>
+    <h4><%= parking.name %></h4>
+    <p><%= parking.address %></p>
+    <p><%= parking.description %></p>
+    <p><%= parking.price_per_day %></p>
+    <%= link_to 'Ver más', parking %>
+    <%= link_to "Editar", edit_parking_path(parking), class:"form-actions btn-edit" %>
+    <%= link_to 'Eliminar', parking_path(parking), method: :delete, data: { confirm: '¿Estás seguro?' } %>
+    <br>
+  <% end %>
+<% end %>
