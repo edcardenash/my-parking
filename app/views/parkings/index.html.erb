@@ -1,25 +1,45 @@
-<h1>Estos son los <strong>Parkings</strong> disponibles</h1>
-<br>
-<% @parkings.each do |parking| %>
-  <% if user_signed_in? %>
-    <% if parking.user_id != current_user.id %>
-      <% if parking.rented? == false %>
-        <h4><%= parking.name %></h4>
-        <%= cl_image_tag parking.photo.key, height: 300, width: 400, crop: :fill %>
-        <p><%= parking.address %></p>
-        <p><%= parking.description %></p>
-        <p><%= parking.price_per_day %></p>
-        <%= link_to 'Ver más', parking %>
+<div class="container">
+  <div class="row">
+  <h1>¡Estos son los <strong>Parkings</strong> disponibles!</h1>
+  <hr>
+    <div class="cards">
+      <% @parkings.each do |parking| %>
+        <div>
+          <% if user_signed_in? %>
+            <% if parking.user_id != current_user.id %>
+              <% if parking.rented? == false %>
+                <div class="card-trip" id="card-show">
+                  <% if parking.photo.attached? %>
+                    <%= cl_image_tag parking.photo.key %>
+                  <% end %>
+                </div>
+                <div class="card-trip-infos">
+                  <h4><%= parking.name %></h4>
+                  <h6><%= parking.address %></h6>
+                  <h6><%= parking.description %></h6>
+                  <h6 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h6>
+                  <%= link_to 'Ver más', parking %>
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% if parking.rented? == false %>
+              <div class="card-trip" id="card-show">
+                <% if parking.photo.attached? %>
+                  <%= cl_image_tag parking.photo.key %>
+                <% end %>
+              </div>
+              <div class="card-trip-infos">
+                <h4><%= parking.name %></h4>
+                <h6><%= parking.address %></h6>
+                <h6><%= parking.description %></h6>
+                <h6 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h6>
+                <%= link_to 'Ver más', parking %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
-    <% else %>
-      <% if parking.rented? == false %>
-        <h4><%= parking.name %></h4>
-        <%= cl_image_tag parking.photo.key, height: 300, width: 400, crop: :fill %>
-        <p><%= parking.address %></p>
-        <p><%= parking.description %></p>
-        <p><%= parking.price_per_day %></p>
-        <%= link_to 'Ver más', parking %>
-      <% end %>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
+</div>
