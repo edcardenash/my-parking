@@ -1,6 +1,5 @@
 class RentalsController < ApplicationController
   before_action :set_rental, only: [:show, :destroy]
-  before_action :authenticate_user!, only: :create
 
   def index
     @rentals = Rental.all.where(user_id: current_user.id)
@@ -19,6 +18,8 @@ class RentalsController < ApplicationController
     @rental.user_id = current_user.id
     @rental.parking_id = @parking.id
     if @rental.save
+      @parking.rented = true
+      @parking.save
       redirect_to rental_path(@rental)
     else
       redirect_to root_path
@@ -26,6 +27,11 @@ class RentalsController < ApplicationController
   end
 
   def destroy
+    @rental = Rental.find(params[:id])
+    @parking_id = @rental.parking_id
+    @parking = Parking.find(@parking_id)
+    @parking.rented = false
+    @parking.save
     @rental.destroy
     redirect_to rentals_path, status: :see_other
   end
