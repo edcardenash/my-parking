@@ -1,5 +1,6 @@
 // Import your components CSS files here.
 @import "alert";
+@import "button";
 @import "avatar";
 @import "form_legend_clear";
 @import "navbar";
@@ -7,6 +8,7 @@
 @import "footer";
 @import "search";
 @import "cardgrid";
+@import "banner";
 
 .content-wrapper {
   min-height: 100vh;

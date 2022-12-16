@@ -1,33 +1,35 @@
-
-<div class="container mb-3">
-  <div class="card-trip">
-    <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
-    <div class="card-trip-infos">
-      <div>
-        <h2>Title here</h2>
-        <p>Short description here!</p>
+<div class="container">
+  <div class="row">
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://www.wawanesa.com/resources/img/usa/blog-images/bigstock-The-Only-Vacant-Parking-Space--262193803-min.jpg);">
+      <div class="container">
+        <h1>My Parking!</h1>
+        <p>Consigue o arrienda tu estacionamiento de manera fácil y segura.</p>
+        <%= link_to "Ver disponibles", parkings_path, class: "btn btn-ghost" %>
       </div>
-      <h2 class="card-trip-pricing">£99.99</h2>
-      <img src="https://kitt.lewagon.com/placeholder/users/krokrob" class="card-trip-user avatar-bordered" />
     </div>
   </div>
 </div>
-<h2>Últimos Parkings</h2>
-<div class="cards d-flex">
-  <% @parkings.each do |parking| %>
-      <div class="card">
-        <% if parking.photo.attached? %>
-          <%= cl_image_tag parking.photo.key, height: 150, width: 200, crop: :fill%>
-        <% end %>
-        <div class="card-trip">
-          <div>
-            <h4><%= parking.name %></h4>
-            <p><%= parking.address %></p>
-            <p><%= parking.description %></p>
-            <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
+<div class="container">
+<br>
+  <div class="row">
+    <h2>Últimos Parkings</h2>
+      <div class="cards">
+        <% @parkings.each do |parking| %>
+          <div class="card-trip" id="card-show">
+            <% if parking.photo.attached? %>
+              <%= cl_image_tag parking.photo.key %>
+            <% end %>
+            <div class="card-trip-infos">
+              <div>
+                <h4><%= parking.name %></h4>
+                <p><%= parking.address %></p>
+                <p><%= parking.description %></p>
+                <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
+                <%= link_to 'Ver más', parking %>
+              </div>
+            </div>
           </div>
-          <%= link_to 'Ver más', parking %>
-        </div>
+        <% end %>
       </div>
-  <% end %>
   </div>
+</div>
