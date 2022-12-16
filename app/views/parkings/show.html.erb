@@ -1,27 +1,38 @@
 <h1>Detalles del Parking <br><strong><%= @parking.name %></strong> </h1>
 
-<% if policy(@parking).edit? %>
-  <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
-<% end %>
-<!-- [...] -->
-<%= link_to 'Eliminar', parking_path(@parking), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
+
+
+<div class="row">
+<div class="col-6">
+ <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
+  <p>Rating: <%= @parking.reviews.average(:rating) %></p>
+  <p>Nombre: <%= @parking.name %></p>
+  <p>Dirección: <%= @parking.address %></p>
+  <p>Descripción: <%= @parking.description %></p>
+  <p>Valor diario: <%= @parking.price_per_day %></p>
+  <p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
+  <p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
+  <p>Ciudad: <%= @parking.city.name  %></p>
+  <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
+  <% if policy(@parking).edit? %>
+    <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
+  <% end %>
+  <!-- [...] -->
+  <%= link_to 'Eliminar', parking_path(@parking), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
+</div>
+<div class="col-6">
+<div style="width: 100%; height: 600px;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+  </div>
+
+</div>
 
 
 
-<p>Rating: <%= @parking.reviews.average(:rating) %></p>
-<p>Nombre: <%= @parking.name %></p>
-<p>Dirección: <%= @parking.address %></p>
-<p>Descripción: <%= @parking.description %></p>
-<p>Valor diario: <%= @parking.price_per_day %></p>
-<p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
-<p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
-<p>Ciudad: <%= @parking.city.name  %></p>
-<p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
-<% if @parking.user == current_user %>
-<p><%= link_to "Editar", edit_parking_path(@parking), class:"form-actions btn-edit" %></p>
-<p><%= link_to 'Eliminar', parking_path(@parking), method: :delete, data: { confirm: '¿Estás seguro?' } %></p>
-<%end%>
-<%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
+</div>
+
 <hr>
 <br>
 <br>

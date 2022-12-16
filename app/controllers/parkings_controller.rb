@@ -10,16 +10,6 @@ class ParkingsController < ApplicationController
 
     end
         @parkings = policy_scope(Parking)
-       
-
-        @markers = @parkings.geocoded.map do |parking|
-      {
-        lat: parking.latitude,
-        lng: parking.longitude,
-        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
-        # image_url: helpers.asset_url("logo.png")
-      }
-    end
   end
 
   def show
@@ -27,6 +17,15 @@ class ParkingsController < ApplicationController
     @parking = Parking.find(params[:id])
     @rental = Rental.new
     @review = Review.new
+    @parkings = Parking.all
+      @markers = @parkings.geocoded.map do |parking|
+      {
+        lat: parking.latitude,
+        lng: parking.longitude,
+        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
+        # image_url: helpers.asset_url("logo.png")
+      }
+    end
   end
 
   def new
