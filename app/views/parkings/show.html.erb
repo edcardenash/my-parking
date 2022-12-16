@@ -4,7 +4,9 @@
   <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
 <% end %>
 <!-- [...] -->
-<%= button_to "Destroy this parking", @parking, method: :delete if policy(@parking).destroy? %>
+<%= link_to 'Eliminar', parking_path(@parking), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
+
+
 
 <p>Rating: <%= @parking.reviews.average(:rating) %></p>
 <p>Nombre: <%= @parking.name %></p>

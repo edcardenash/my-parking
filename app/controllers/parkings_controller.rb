@@ -9,12 +9,17 @@ class ParkingsController < ApplicationController
       @parkings = Parking.all
 
     end
-      @parkings = policy_scope(Parking)
-       @markers = @parkings.geocoded.map do |flat|
+        @parkings = policy_scope(Parking)
+       
+
+        @markers = @parkings.geocoded.map do |parking|
       {
         lat: parking.latitude,
-        lng: parking.longitude
+        lng: parking.longitude,
+        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
+        # image_url: helpers.asset_url("logo.png")
       }
+    end
   end
 
   def show
@@ -26,13 +31,13 @@ class ParkingsController < ApplicationController
 
   def new
     @parking = Parking.new
-    authorized @parking
+    authorize @parking
   end
 
   def create
     @parking = Parking.new(parkings_params)
     @parking.user = current_user
-    authorized @parking
+    authorize @parking
     @parking.user_id = current_user.id
     if @parking.save
       redirect_to @parking, notice: 'Parking was successfully created.'
@@ -57,7 +62,7 @@ class ParkingsController < ApplicationController
   def destroy
     authorize @parking
     @parking.destroy
-    redirect_to parking_url, notice: 'Parking was successfully destroyed.'
+    redirect_to parkings_path, notice: 'Parking was successfully destroyed.'
   end
 
   def my_parkings
