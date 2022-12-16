@@ -7,21 +7,36 @@ class ParkingsController < ApplicationController
       @parkings = Parking.global_search(params[:query])
     else
       @parkings = Parking.all
+
     end
+        @parkings = policy_scope(Parking)
   end
 
   def show
+    authorize @parking
     @parking = Parking.find(params[:id])
     @rental = Rental.new
     @review = Review.new
+    @parkings = Parking.all
+      @markers = @parkings.geocoded.map do |parking|
+      {
+        lat: parking.latitude,
+        lng: parking.longitude,
+        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
+        # image_url: helpers.asset_url("logo.png")
+      }
+    end
   end
 
   def new
     @parking = Parking.new
+    authorize @parking
   end
 
   def create
     @parking = Parking.new(parkings_params)
+    @parking.user = current_user
+    authorize @parking
     @parking.user_id = current_user.id
     if @parking.save
       redirect_to @parking, notice: 'Parking was successfully created.'
@@ -31,9 +46,11 @@ class ParkingsController < ApplicationController
   end
 
   def edit
+    authorize @parking
   end
 
   def update
+    authorize @parking
     if @parking.update(parkings_params)
       redirect_to @parking, notice: 'Parking was successfully updated.'
     else
@@ -42,8 +59,9 @@ class ParkingsController < ApplicationController
   end
 
   def destroy
+    authorize @parking
     @parking.destroy
-    redirect_to parking_url, notice: 'Parking was successfully destroyed.'
+    redirect_to parking_path, notice: 'Parking was successfully destroyed.'
   end
 
   def my_parkings

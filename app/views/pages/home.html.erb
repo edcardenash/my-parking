@@ -1,37 +1,35 @@
-<h2 class="mt-4">Parkings recientes</h2>
-<div class="container mb-3 mt-4">
+<div class="container">
   <div class="row">
-    <% @parkings.each do |parking| %>
-        <div class="col-3 mb-4">
-          <div class="card-trip">
-            <%= cl_image_tag parking.photo.key%>
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://www.wawanesa.com/resources/img/usa/blog-images/bigstock-The-Only-Vacant-Parking-Space--262193803-min.jpg);">
+      <div class="container">
+        <h1>My Parking!</h1>
+        <p>Consigue o arrienda tu estacionamiento de manera fácil y segura.</p>
+        <%= link_to "Ver disponibles", parkings_path, class: "btn btn-ghost" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+<br>
+  <div class="row">
+    <h2>Últimos Parkings</h2>
+      <div class="cards">
+        <% @parkings.each do |parking| %>
+          <div class="card-trip" id="card-show">
+            <% if parking.photo.attached? %>
+              <%= cl_image_tag parking.photo.key %>
+            <% end %>
             <div class="card-trip-infos">
-              <div class="pl-2">
-                <h2 class="mb-2"><%= link_to parking.name, parking_path(parking), class: "nav-link" %></h2>
-                <p><%= parking.address %></p>
-              </div>
               <div>
-                <p class="mb-2"><i class= "<%= parking.reviews.average(:rating) == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i> <%= parking.reviews.average(:rating) %></p>
-                <h2 class="card-trip-pricing">$<%= parking.price_per_day %></h2>
+                <h4><%= parking.name %></h4>
+                <p><%= parking.address %></p>
+                <p><%= parking.description %></p>
+                <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
+                <%= link_to 'Ver más', parking %>
               </div>
             </div>
           </div>
-        </div>
-    <% end %>
+        <% end %>
+      </div>
   </div>
-</div>
-
-
-<h2>Comunas donde estamos!</h2>
-
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670814623/providencia_zg2lda.jpg)">
-  Providencia
-</div>
-
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670814868/laReina_j1db9j.jpg); background-position: center bottom;">
-  La Reina
-</div>
-
-<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670815117/lasCondes_yvryzy.jpg); background-position: center bottom;">
-  Las Condes
 </div>

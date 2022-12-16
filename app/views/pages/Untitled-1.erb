@@ -1,7 +1,7 @@
+<h2 class="mt-4">Parkings recientes</h2>
 <div class="container mb-3 mt-4">
   <div class="row">
     <% @parkings.each do |parking| %>
-      <% if parking.rented == false %>
         <div class="col-3 mb-4">
           <div class="card-trip">
             <%= cl_image_tag parking.photo.key%>
@@ -17,7 +17,21 @@
             </div>
           </div>
         </div>
-      <%end%>
     <% end %>
   </div>
+</div>
+
+
+<h2>Comunas donde estamos!</h2>
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670814623/providencia_zg2lda.jpg)">
+  Providencia
+</div>
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670814868/laReina_j1db9j.jpg); background-position: center bottom;">
+  La Reina
+</div>
+
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://res.cloudinary.com/dpobz3mzq/image/upload/v1670815117/lasCondes_yvryzy.jpg); background-position: center bottom;">
+  Las Condes
 </div>

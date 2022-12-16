@@ -1,12 +1,10 @@
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 8px;
+  padding: 8px;
+  flex-grow: 1;
 }
-.card-category {
-  height: 100px;
-}
-
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
