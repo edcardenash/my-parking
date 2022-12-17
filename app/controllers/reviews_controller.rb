@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.all
+    @reviews = policy_scope(Review)
   end
 
   def show
@@ -11,12 +12,14 @@ class ReviewsController < ApplicationController
   def new
     @parking = Parking.find(params[:parking_id])
     @review = Review.new
+    authorize @review
   end
 
   def create
     @parking = Parking.find(params[:parking_id])
     @review = Review.new(reviews_params)
     @review.parking = @parking
+    authorize @review
     @review.user_id = current_user.id
     if @review.save
       redirect_to parking_path(@parking), notice: "Review was successfully created."
@@ -29,6 +32,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    authorize @review
     @parking = Parking.find(params[:parking_id])
     if @review.update(review_params)
       redirect_to parking_path(@parking), notice: "Review was successfully updated."
@@ -38,6 +42,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    authorize @review
     @review.destroy
     redirect_to reviews_url, notice: "Review was successfully destroyed."
   end
