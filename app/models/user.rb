@@ -9,9 +9,6 @@ class User < ApplicationRecord
   has_many :rentals
   # Dependencia contra rentals, no destructiva para almacenar el historico de reviews
   has_many :reviews
-
+  has_one_attached :photo
   belongs_to :city
-
-  validates :email, presence: true, uniqueness: true
-  validates :password, presence: true
 end
