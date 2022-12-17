@@ -59,6 +59,7 @@ class ParkingsController < ApplicationController
 
   def my_parkings
     @parkings = current_user.parkings
+    @markers = show_map
     authorize @parkings
   end
 
