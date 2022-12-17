@@ -17,8 +17,8 @@ class ParkingsController < ApplicationController
     @parking = Parking.find(params[:id])
     @rental = Rental.new
     @review = Review.new
-    @parkings = Parking.all
-      @markers = @parkings.geocoded.map do |parking|
+    #@parkings = Parking.all
+      @marker = @parking.geocoded.map do |parking|
       {
         lat: parking.latitude,
         lng: parking.longitude,
@@ -69,6 +69,17 @@ class ParkingsController < ApplicationController
   end
 
   private
+
+  def find_map
+    @markers = @parkings.geocoded.map do |parking|
+      {
+        lat: parking.latitude,
+        lng: parking.longitude,
+        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
+        # image_url: helpers.asset_url("logo.png")
+      }
+    end
+  end
 
   def set_parking
     @parking = Parking.find(params[:id])
