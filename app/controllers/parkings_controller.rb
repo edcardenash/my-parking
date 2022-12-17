@@ -9,7 +9,7 @@ class ParkingsController < ApplicationController
       @parkings = Parking.all
 
     end
-        @parkings = policy_scope(Parking)
+    @parkings = policy_scope(Parking)
   end
 
   def show
@@ -66,6 +66,7 @@ class ParkingsController < ApplicationController
 
   def my_parkings
     @parkings = current_user.parkings
+    authorize @parkings
   end
 
   private
