@@ -1,4 +1,4 @@
-class ParkingPolicy < ApplicationPolicy
+class RentalPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
@@ -10,10 +10,6 @@ class ParkingPolicy < ApplicationPolicy
   end
 
   def create?
-    true
-  end
-
-  def my_parkings?
     true
   end
 end
