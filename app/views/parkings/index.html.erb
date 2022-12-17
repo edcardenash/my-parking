@@ -1,45 +1,37 @@
 <div class="container">
-  <div class="row">
-  <h1>¡Estos son los <strong>Parkings</strong> disponibles!</h1>
+
+  <h1 class="mt-2 text-center">¡Estos son los <strong>Parkings</strong> disponibles!</h1>
   <hr>
-    <div class="cards">
+
+  <div class="row">
+    <div class="col-6">
       <% @parkings.each do |parking| %>
-        <div>
+        <% if parking.rented? == false %>
           <% if user_signed_in? %>
             <% if parking.user_id != current_user.id %>
-              <% if parking.rented? == false %>
-                <div class="card-trip" id="card-show">
-                  <% if parking.photo.attached? %>
-                    <%= cl_image_tag parking.photo.key %>
-                  <% end %>
-                </div>
-                <div class="card-trip-infos">
-                  <h4><%= parking.name %></h4>
-                  <h6><%= parking.address %></h6>
-                  <h6><%= parking.description %></h6>
-                  <h6 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h6>
-                  <%= link_to 'Ver más', parking %>
-                </div>
-              <% end %>
-            <% end %>
-          <% else %>
-            <% if parking.rented? == false %>
-              <div class="card-trip" id="card-show">
+              <div class="card-product m-4">
                 <% if parking.photo.attached? %>
                   <%= cl_image_tag parking.photo.key %>
                 <% end %>
-              </div>
-              <div class="card-trip-infos">
-                <h4><%= parking.name %></h4>
-                <h6><%= parking.address %></h6>
-                <h6><%= parking.description %></h6>
-                <h6 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h6>
-                <%= link_to 'Ver más', parking %>
+                <div class="card-product-infos">
+                  <h1><%= parking.name %></h1>
+                  <h3 class="mt-1"><i class="fa-solid fa-location-dot"></i> <%= parking.address %></h3>
+                  <h3 class="mt-1"><strong>$ <%= parking.price_per_day.to_i %></strong> por día.</h3>
+                  <p><%= parking.description.truncate(50) %></p>
+                  <%= link_to 'Arrendar', parking, class: "btn btn-outline-success btn-sm mt-1"%>
+                </div>
               </div>
             <% end %>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
+    </div>
+    <div class="col-6 pt-4 pb-4">
+      <div style="width: 100%; height: 100%;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
     </div>
   </div>
 </div>

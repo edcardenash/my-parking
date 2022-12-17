@@ -7,8 +7,8 @@ class ParkingsController < ApplicationController
       @parkings = Parking.global_search(params[:query])
     else
       @parkings = Parking.all
-
     end
+    @markers = show_map
     @parkings = policy_scope(Parking)
   end
 
@@ -18,14 +18,7 @@ class ParkingsController < ApplicationController
     @rental = Rental.new
     @review = Review.new
     @parkings = Parking.all
-      @markers = @parkings.geocoded.map do |parking|
-      {
-        lat: parking.latitude,
-        lng: parking.longitude,
-        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
-        # image_url: helpers.asset_url("logo.png")
-      }
-    end
+    @markers = show_map
   end
 
   def new
@@ -77,5 +70,16 @@ class ParkingsController < ApplicationController
 
   def parkings_params
     params.require(:parking).permit(:name, :address, :price_per_day, :description, :covered, :vehicle_type, :rented, :photo, :city_id)
+  end
+
+  def show_map
+    return @parkings.geocoded.map do |parking|
+      {
+        lat: parking.latitude,
+        lng: parking.longitude,
+        # info_window: render_to_string(partial: "info_window", locals: {parking: parking}),
+        # image_url: helpers.asset_url("logo.png")
+      }
+    end
   end
 end
