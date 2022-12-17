@@ -82,7 +82,7 @@
 <% if user_signed_in? %>
   <% if @parking.rented? == true && @parking.rental.user_id == current_user.id %>
     <h2>Agregar comentarios</h2>
-    <%= simple_form_for [@parking, @review] do |f| %>
+    <%= simple_form_for([@parking, @review]) do |f| %>
       <%= f.input :comment %>
       <%= f.input :rating %>
       <%= f.submit "Agregar un review", class: "btn btn-primary" %>

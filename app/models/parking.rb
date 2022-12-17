@@ -19,5 +19,5 @@ class Parking < ApplicationRecord
   validates :description, presence: true
   validates :covered, inclusion: { in: [true, false] }
   validates :vehicle_type, presence: true
-  validates :rented, inclusion: { in: [true, false] }
+  # validates :rented, inclusion: { in: [true, false] }
 end

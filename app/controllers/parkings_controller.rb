@@ -30,6 +30,7 @@ class ParkingsController < ApplicationController
     @parking = Parking.new(parkings_params)
     @parking.user = current_user
     authorize @parking
+    @parking.rented = false
     @parking.user_id = current_user.id
     if @parking.save
       redirect_to @parking, notice: 'Parking was successfully created.'
