@@ -3,9 +3,11 @@ class RentalsController < ApplicationController
 
   def index
     @rentals = Rental.all.where(user_id: current_user.id)
+    @rentals = policy_scope(Rental)
   end
 
   def show
+    authorize @rental
     @rental = Rental.find(params[:id])
     @parking = @rental.parking
   end
@@ -15,6 +17,7 @@ class RentalsController < ApplicationController
     @rental = Rental.new(rental_params)
     @rental.parking = @parking
     @rental.total_amount = (@rental.end_date - @rental.start_date).to_f * @rental.parking.price_per_day
+    authorize @rental
     @rental.user_id = current_user.id
     @rental.parking_id = @parking.id
     if @rental.save
@@ -28,6 +31,7 @@ class RentalsController < ApplicationController
 
   def destroy
     @rental = Rental.find(params[:id])
+    authorize @rental
     @parking_id = @rental.parking_id
     @parking = Parking.find(@parking_id)
     @parking.rented = false
