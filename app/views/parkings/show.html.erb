@@ -1,55 +1,87 @@
-<h1>Detalles del Parking <br><strong><%= @parking.name %></strong> </h1>
-<div class="row">
-<div class="col-6">
- <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
-  <p>Rating: <%= @parking.reviews.average(:rating) %></p>
-  <p>Nombre: <%= @parking.name %></p>
-  <p>Dirección: <%= @parking.address %></p>
-  <p>Descripción: <%= @parking.description %></p>
-  <p>Valor diario: <%= @parking.price_per_day %></p>
-  <p>¿Es cubierto? <%= @parking.covered ? "Si" : "No" %></p>
-  <p>Vehiculos recomendados: <%= @parking.vehicle_type %></p>
-  <p>Ciudad: <%= @parking.city.name  %></p>
-  <p>Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></p>
-  <% if policy(@parking).edit? %>
-    <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
-  <% end %>
-  <!-- [...] -->
-  <%= link_to 'Eliminar', parking_path(@parking), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
+<div class="row mt-4 align-items-center">
+  <div class="col-6">
+    <h1 class="text-center"><strong><%= @parking.name.capitalize %></strong></h1>
+  </div>
+  <div class="col-6">
+    <div class="row">
+      <div class="col-3">
+        <p><i class="fa-regular fa-comment-dots"></i> <%= @parking.reviews.count %> reviews</p>
+      </div>
+      <div class="col-3">
+        <p><i class="<%= @parking.reviews.average(:rating) == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i> <%= @parking.reviews.average(:rating) %></p>
+      </div>
+      <div class="col-6">
+        <p><i class="fa-solid fa-location-dot"></i> <%= @parking.address %></p>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="col-6">
-<div style="width: 100%; height: 600px;"
-        data-controller="map"
-        data-map-markers-value="<%= @markers.to_json %>"
-        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+<hr>
+<div class="row mt-2">
+  <div class="col-6 p-2">
+    <!-- Control de reservas -->
+    <div class="mb-3 p-2">
+      <% if user_signed_in? %>
+        <% if @parking.user != current_user && @parking.rented? == false %>
+            <h3 class="text-center">¡Reserva este parking!</h3>
+            <%= render 'shared/rental_form' %>
+        <% end %>
+      <% else %>
+        <h4>Para reservar este parking <strong><%= link_to "Inicia sesión", new_user_session_path, class: "nav-link" %></strong></h4>
+      <% end %>
+    </div>
+    <div class="row">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Descripción: <%= @parking.description %></li>
+        <li class="list-group-item">Valor diario: <%= @parking.price_per_day %></li>
+        <li class="list-group-item">¿Es cubierto?: <%= @parking.covered ? "Si" : "No" %></li>
+        <li class="list-group-item">Vehiculos recomendados: <%= @parking.vehicle_type %></li>
+        <li class="list-group-item">Ciudad: <%= @parking.city.name  %></li>
+        <li class="list-group-item">Usuario: <%= @parking.user.first_name  %></li>
+        <li class="list-group-item">Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></li>
+      </ul>
+    </div>
+    <% if policy(@parking).edit? %>
+      <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
+    <% end %>
+    <%= link_to 'Eliminar', parking_path(@parking), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
+  </div>
+
+  <div class="col-6">
+    <div class="mb-3" style="width: 100%; height: 250px;"
+      data-controller="map"
+      data-map-markers-value="<%= @markers.to_json %>"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+    <%= cl_image_tag(@parking.photo.key, height: 300, width: 400, crop: :fill, :transformation=>[
+      {:border=>"2px_solid_grey", :radius=>7}
+    ]) %>
   </div>
 </div>
 
-
-
-</div>
-
 <hr>
-<br>
-<br>
-<h2>Reviews</h2>
-<% @parking.reviews.each do |review|%>
-<%= review.user.first_name%>:
-  <p><%= review.comment %></p>
-  <p><%= review.rating %></p>
-<hr>
-<%end%>
-<br>
-<br>
-<% if user_signed_in? %>
-  <% if @parking.user != current_user && @parking.rented? == false %>
-      <h3>¡Reserva este parking!</h3>
-      <%= render 'shared/rental_form' %>
-      <br>
-      <br>
+<% unless @parking.reviews.count.zero? %>
+  <h2 class="mt-4">Reviews</h2>
+  <% @parking.reviews.each do |review|%>
+    <figure>
+      <blockquote class="blockquote">
+        <p><%= review.comment %></p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        <%= review.user.first_name%> <cite title="rating">
+        <p><i class="<%= review.rating == nil ? "fa-regular fa-star" : "fa-solid fa-star" %>"></i>
+        <%= review.rating %></p></cite>
+      </figcaption>
+    </figure>
+    <hr>
   <% end %>
+<% else %>
+  <h3>Sin reviews por el momento</h3>
+<%end%>
+
+<% if user_signed_in? %>
   <% if @parking.rented? == true && @parking.rental.user_id == current_user.id %>
-    <h2>Agregar un review</h2>
+    <h2>Agregar comentarios</h2>
     <%= simple_form_for [@parking, @review] do |f| %>
       <%= f.input :comment %>
       <%= f.input :rating %>
@@ -57,9 +89,6 @@
     <% end %>
   <% end %>
 <% else %>
-  <h4>Para reservar este parking <strong><%= link_to "Inicia sesión", new_user_session_path, class: "nav-link" %></strong></h4>
+  <h4>Para agregar un comentario este parking <strong><%= link_to "Inicia sesión", new_user_session_path, class: "nav-link" %></strong></h4>
 <% end %>
-<hr>
-<br>
-<br>
-<%= link_to "Volver a Parkings", parkings_path %>
+<%= link_to "Volver a Parkings", parkings_path, class: "btn btn-secondary"%>
