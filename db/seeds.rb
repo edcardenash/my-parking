@@ -71,7 +71,7 @@ parking = Parking.create!(name: "Estacionamiento Chacao",
                           vehicle_type: "Automovil",
                           city_id: 3,
                           user_id: 1,
-                          rented: false)
+                          rented: true)
 parking.photo.attach(io: URI.open("https://res.cloudinary.com/dpobz3mzq/image/upload/v1/development/xszrdw91wg143e7ycbytl1nzcqe9"), filename: 'chacao.jpg')
 parking.save
 parking = Parking.create!(name: "Parking espacioso",
@@ -107,4 +107,7 @@ parking = Parking.create!(name: "Parking divertido",
                           rented: false)
 parking.photo.attach(io: URI.open("https://res.cloudinary.com/dpobz3mzq/image/upload/v1/development/w3mjq0cfpcvzglupsiqiv7nqxmma"), filename: 'divertido.jpg')
 parking.save
+
+rental = Rental.create!(start_date: Time.now, end_date: Time.now + 1.hour, total_amount: 500.0, user_id: 1, parking_id: 3)
+rental.save
 puts "¡Listo!"
