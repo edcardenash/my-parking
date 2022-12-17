@@ -3,12 +3,11 @@
 <%= simple_form_for @parking do |f| %>
   <%= f.input :name  %>
   <%= f.input :address  %>
+  <%= f.association :city  %>
+  <%= f.input :vehicle_type, collection: [['automovil', 'Automovil'], ['camioneta', 'Camioneta'], ['motocicleta', 'Motocicleta'], ['bicileta', 'Bicicleta']], label_method: :second, value_method: :first %>
   <%= f.input :price_per_day  %>
   <%= f.input :description  %>
   <%= f.input :covered  %>
-  <%= f.input :vehicle_type  %>
-  <%= f.association :city  %>
-  <%= f.input :rented  %>
   <%= f.input :photo, as: :file %>
   <%= f.button :submit  %>
 <% end %>

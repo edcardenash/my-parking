@@ -61,7 +61,7 @@ class ParkingsController < ApplicationController
   def destroy
     authorize @parking
     @parking.destroy
-    redirect_to parkings_path, notice: 'Parking was successfully destroyed.'
+    redirect_to parking_path, notice: 'Parking was successfully destroyed.'
   end
 
   def my_parkings
