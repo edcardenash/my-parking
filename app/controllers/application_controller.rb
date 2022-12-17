@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
-
     # before_action :configure_permitted_parameters, if: :devise_controller?
   end
 
@@ -42,10 +41,11 @@ class ApplicationController < ActionController::Base
   end
 
   def storable_location?
-      request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
+
   def store_user_location!
-      # :user is the scope we are authenticating
-      store_location_for(:user, request.fullpath)
-    end
+    # :user is the scope we are authenticating
+    store_location_for(:user, request.fullpath)
+  end
 end
