@@ -6,18 +6,20 @@
     <p>Dirección: <%= @parking.address %></p>
     <p>Fecha de inicio: <%= @rental.start_date %></p>
     <p>Fecha de término: <%= @rental.end_date %></p>
-    <%= cl_image_tag @parking.photo.key, height: 300, width: 400, crop: :fill %>
     <br>
     <br>
-    <h3>¡Proceder a pagar!</h3>
-    <button type="button" class="btn btn-warning">Reservar</button>
+    <br>
+    <br>
+    <button type="button" class="btn btn-warning">
+      <h4>¡Proceder a pagar!</h4>
+    </button>
     <br>
     <br>
     <%= link_to 'Eliminar', rental_path(@rental), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } %>
     <%= link_to "Regresar a Parkings", parkings_path %>
-</div>
+  </div>
 
-<div class="col-6">
+  <div class="col-6">
     <div class="mb-3" style="width: 100%; height: 250px;"
       data-controller="map"
       data-map-markers-value="<%= @markers.to_json %>"
@@ -26,5 +28,5 @@
     <%= cl_image_tag(@parking.photo.key, height: 300, width: 400, crop: :fill, :transformation=>[
       {:border=>"2px_solid_grey", :radius=>7}
     ]) %>
-</div>
+  </div>
 </div>

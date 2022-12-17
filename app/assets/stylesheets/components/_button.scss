@@ -10,6 +10,8 @@
 
 .btn-ghost:hover {
   opacity: 1;
+  background-color: white;
+  color: black;
 }
 
 .btn-flat {
@@ -38,4 +40,10 @@
 .btn-gradient:hover {
   background: linear-gradient(#147EFF, #0F67DA);
   color: white;
+}
+
+.btn-options {
+  background-color: #92D300;
+  color: white;
+  margin: 4px;
 }

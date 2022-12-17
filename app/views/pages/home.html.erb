@@ -10,26 +10,29 @@
   </div>
 </div>
 <div class="container">
-<br>
+  <br>
   <div class="row">
     <h2>Últimos Parkings</h2>
-      <div class="cards">
-        <% @parkings.each do |parking| %>
-          <div class="card-trip" id="card-show">
-            <% if parking.photo.attached? %>
-              <%= cl_image_tag parking.photo.key %>
-            <% end %>
-            <div class="card-trip-infos">
-              <div>
-                <h4><%= parking.name %></h4>
-                <p><%= parking.address %></p>
-                <p><%= parking.description %></p>
-                <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
-                <%= link_to 'Ver más', parking %>
-              </div>
+    <div class="cards">
+      <% @parkings.each do |parking| %>
+        <div class="card-trip" id="card-show">
+          <% if parking.photo.attached? %>
+            <%= cl_image_tag parking.photo.key %>
+          <% end %>
+          <div class="card-trip-infos">
+            <div>
+              <h4><%= parking.name %></h4>
+              <p><%= parking.address %></p>
+              <p><%= parking.description %></p>
+              <br>
+              <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
             </div>
           </div>
-        <% end %>
-      </div>
+          <div class="btn btn-options">
+            <%= link_to 'Ver más', parking %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
