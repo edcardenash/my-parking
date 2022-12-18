@@ -4,7 +4,7 @@ class ParkingsController < ApplicationController
 
   def index
     if params[:query].present?
-      @parkings = Parking.global_search(params[:query])
+      @parkings = Parking.search_by_name(params[:query])
     else
       @parkings = Parking.all
     end
@@ -17,8 +17,14 @@ class ParkingsController < ApplicationController
     @parking = Parking.find(params[:id])
     @rental = Rental.new
     @review = Review.new
-    @parkings = Parking.all
-    @markers = show_map
+    @markers = @parking.geocode.map do |parking|
+      {
+        lat: @parking.latitude,
+        lng: @parking.longitude,
+        # info_window: render_to_string(partial: "info_window", locals: { parking: @parking })
+        # image_url: helpers.asset_url("logo.png")
+      }
+    end
   end
 
   def new

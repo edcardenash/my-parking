@@ -22,6 +22,19 @@
                 </div>
               </div>
             <% end %>
+          <% else %>
+            <div class="card-product m-4">
+              <% if parking.photo.attached? %>
+                <%= cl_image_tag parking.photo.key %>
+              <% end %>
+              <div class="card-product-infos">
+                <h1><%= parking.name %></h1>
+                <h3 class="mt-1"><i class="fa-solid fa-location-dot"></i> <%= parking.address %></h3>
+                <h3 class="mt-1"><strong>$ <%= parking.price_per_day.to_i %></strong> por día.</h3>
+                <p><%= parking.description.truncate(50) %></p>
+                <%= link_to 'Arrendar', parking, class: "btn btn-outline-success btn-sm mt-1"%>
+              </div>
+            </div>
           <% end %>
         <% end %>
       <% end %>

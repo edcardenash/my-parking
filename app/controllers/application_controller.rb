@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   before_action :authenticate_user!
-
   before_action :configure_permitted_parameters, if: :devise_controller?
-
   before_action :store_user_location!, if: :storable_location?
 
   def configure_permitted_parameters
