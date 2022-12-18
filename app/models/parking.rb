@@ -1,8 +1,15 @@
 class Parking < ApplicationRecord
   include PgSearch::Model
-  pg_search_scope :global_search, against: [:city_id.to_s],
-    associated_against: { city: [:name] },
-    using: { tsearch: { prefix: true } }
+  # pg_search_scope :global_search, against: [:city_id.to_s],
+  #   associated_against: { city: [:name] },
+  #   using: { tsearch: { prefix: true } }
+
+  include PgSearch::Model
+pg_search_scope :search_by_name,
+  against: [ :name ],
+  using: {
+    tsearch: { prefix: true } # <-- now `superman batm` will return something!
+  }
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
   belongs_to :city
