@@ -42,9 +42,9 @@
       </ul>
     </div>
     <% if policy(@parking).edit? %>
-      <%= link_to "Edit this parking", edit_parking_path(@parking) %> |
+      <%= link_to "Editar", edit_parking_path(@parking), class: "btn btn-outline-warning mt-3" %>
     <% end %>
-    <%= link_to 'Eliminar', parking_path(@parking), data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
+    <%= link_to 'Eliminar', parking_path(@parking), class: "btn btn-outline-danger mt-3" ,data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
   </div>
 
   <div class="col-6">

@@ -7,8 +7,6 @@
     <div class="col-6">
       <% @parkings.each do |parking| %>
         <% if parking.rented? == false %>
-          <% if user_signed_in? %>
-            <% if parking.user_id != current_user.id %>
               <div class="card-product m-4">
                 <% if parking.photo.attached? %>
                   <%= cl_image_tag parking.photo.key %>
