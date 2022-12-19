@@ -2,7 +2,7 @@
   <div class="row">
     <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://www.wawanesa.com/resources/img/usa/blog-images/bigstock-The-Only-Vacant-Parking-Space--262193803-min.jpg);">
       <div class="container">
-        <h1>My Parking!</h1>
+        <%= image_tag "logo-bn.png", class: 'w-25'  %>
         <p>Consigue o arrienda tu estacionamiento de manera fácil y segura.</p>
         <%= link_to "Ver disponibles", parkings_path, class: "btn btn-ghost" %>
       </div>
@@ -12,7 +12,7 @@
 <div class="container">
   <br>
   <div class="row">
-    <h2>Últimos Parkings</h2>
+    <h2>Últimos Parkings agregados</h2>
     <div class="cards">
       <% @parkings.each do |parking| %>
         <div class="card-trip" id="card-show">
@@ -21,15 +21,13 @@
           <% end %>
           <div class="card-trip-infos">
             <div>
-              <h4><%= parking.name %></h4>
+              <h5><%= parking.name %></h5>
               <p><%= parking.address %></p>
-              <p><%= parking.description %></p>
+              <p><%= parking.description.truncate(50) %></p>
               <br>
               <h5 class="card-trip-pricing"><strong>$<%= parking.price_per_day.to_i %></strong> por día.</h5>
+              <%= link_to 'Arrendar', parking, class: "btn btn-outline-success btn-sm mt-1"%>
             </div>
-          </div>
-          <div class="btn btn-options">
-            <%= link_to 'Ver más', parking %>
           </div>
         </div>
       <% end %>

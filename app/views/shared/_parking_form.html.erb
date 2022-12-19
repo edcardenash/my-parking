@@ -4,10 +4,10 @@
     <%= f.input :address, label: "Dirección"  %>
     <%= f.input :price_per_day, label: "Valor diario", as: :float  %>
     <%= f.input :description, label: "Descripción", as: :text  %>
-    <%= f.input :covered, label: "¿Es cubierto?"  %>
-    <%= f.input :vehicle_type, collection: [['automovil', 'Automovil'], ['camioneta', 'Camioneta'], ['motocicleta', 'Motocicleta'], ['bicicleta', 'Bicicleta']], label_method: :second, value_method: :first, label: "¿Que tipo de vehiculo?" %>
+    <%= f.input :covered, label: "¿Está cubierto?"  %>
+    <%= f.input :vehicle_type, collection: [['automovil', 'Automovil'], ['camioneta', 'Camioneta'], ['motocicleta', 'Motocicleta'], ['bicicleta', 'Bicicleta']], label_method: :second, value_method: :first, label: "¿Que tipo de vehículo es?" %>
     <%= f.association :city, label: "Ciudad o Comuna"  %>
     <%= f.input :photo, as: :file, label: "Sube una imágen" %>
-    <%= f.button :submit,"Publicar", class: "btn btn-primary"%>
+    <%= f.button :submit,"Publicar", class: "btn btn-success"%>
   <% end %>
 </div>
