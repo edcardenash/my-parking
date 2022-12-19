@@ -4,9 +4,9 @@ class ParkingsController < ApplicationController
 
   def index
     if params[:query].present?
-      @parkings = Parking.search_by_name(params[:query])
+      @parkings = Parking.global_search(params[:query])
     else
-      @parkings = Parking.all
+      @parkings = policy_scope(Parking)
     end
     @markers = show_map
     @parkings = policy_scope(Parking)

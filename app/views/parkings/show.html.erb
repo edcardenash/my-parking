@@ -1,6 +1,7 @@
+
 <div class="row mt-4 align-items-center">
   <div class="col-6">
-    <h1 class="text-center"><strong><%= @parking.name.capitalize %></strong></h1>
+    <h3 class="text-left"><strong><%= @parking.name.capitalize %></strong></h3>
   </div>
   <div class="col-6">
     <div class="row">
@@ -20,7 +21,7 @@
 <div class="row mt-2">
   <div class="col-6 p-2">
     <!-- Control de reservas -->
-    <div class="mb-3 p-2">
+    <div class="mb-3">
       <% if user_signed_in? %>
         <% if @parking.user != current_user && @parking.rented? == false %>
             <h3 class="text-center">¡Reserva este parking!</h3>
@@ -29,15 +30,15 @@
       <% else %>
         <h4>Para reservar este parking <strong><%= link_to "Inicia sesión", new_user_session_path, class: "nav-link" %></strong></h4>
       <% end %>
-    </div>
-    <div class="row">
+    <%# </div>
+    <div class="row"> %>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Descripción: <%= @parking.description %></li>
         <li class="list-group-item">Valor diario: <%= @parking.price_per_day %></li>
-        <li class="list-group-item">¿Es cubierto?: <%= @parking.covered ? "Si" : "No" %></li>
-        <li class="list-group-item">Vehiculos recomendados: <%= @parking.vehicle_type %></li>
+        <li class="list-group-item">¿Está cubierto?: <%= @parking.covered ? "Si" : "No" %></li>
+        <li class="list-group-item">Vehículos recomendados: <%= @parking.vehicle_type %></li>
         <li class="list-group-item">Ciudad: <%= @parking.city.name  %></li>
-        <li class="list-group-item">Usuario: <%= @parking.user.first_name  %></li>
+        <%# <li class="list-group-item">Usuario: <%= @parking.user.first_name  %></li>
         <li class="list-group-item">Estado: <%= @parking.rented ? "Rentado" : "Disponible"  %></li>
       </ul>
     </div>
@@ -47,13 +48,13 @@
     <%= link_to 'Eliminar', parking_path(@parking), class: "btn btn-outline-danger mt-3" ,data: { turbo_method: :delete, turbo_confirm: '¿Estás seguro?' } if policy(@parking).destroy? %>
   </div>
 
-  <div class="col-6">
+  <div class="col-6 p-2">
     <div class="mb-3" style="width: 100%; height: 250px;"
       data-controller="map"
       data-map-markers-value="<%= @markers.to_json %>"
       data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     </div>
-    <%= cl_image_tag(@parking.photo.key, height: 300, width: 400, crop: :fill, :transformation=>[
+    <%= cl_image_tag(@parking.photo.key, class: 'w-100', crop: :fill, :transformation=>[
       {:border=>"2px_solid_grey", :radius=>7}
     ]) %>
   </div>
