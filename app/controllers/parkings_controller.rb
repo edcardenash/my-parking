@@ -4,12 +4,12 @@ class ParkingsController < ApplicationController
 
   def index
     if params[:query].present?
-      @parkings = Parking.global_search(params[:query])
+      @parkings = policy_scope(Parking.global_search(params[:query]))
     else
       @parkings = policy_scope(Parking)
     end
     @markers = show_map
-    @parkings = policy_scope(Parking)
+    # @parkings = policy_scope(Parking)
   end
 
   def show
@@ -21,7 +21,7 @@ class ParkingsController < ApplicationController
       {
         lat: @parking.latitude,
         lng: @parking.longitude,
-        # info_window: render_to_string(partial: "info_window", locals: { parking: @parking })
+        info_window: render_to_string(partial: "info_window", locals: { parking: @parking })
         # image_url: helpers.asset_url("logo.png")
       }
     end
